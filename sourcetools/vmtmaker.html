@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+	<!-- HTML -->
+	<body>
+	
+		<div class="old-download">You can download the old version <a href="https://idoblenderstuffs.github.io/sourcetools/IdoSourceTools.rar">here</a></div>
+		
+		<h1>idoblenderstuffs VMT Maker v3</h1>
+		
+		<br>
+		
+		<label for="filepathbox">Filepath:</label>
+		<input type="text" class="inputbox" id="filepathbox" name="filepathbox">
+		<input type="button" class="info" id="filepathinfo" value="?" onclick="filepathinfo()">
+		
+		<br><br>
+		
+		<label for="basetexturebox">Basetexture:</label>
+		<input type="text" class="inputbox" id="basetexturebox" name="basetexturebox">
+		<input type="button" class="info" id="basetextureinfo" value="?" onclick="basetextureinfo()">
+		<br>
+		<label for="bumpmapbox">Bumpmap:</label>
+		<input type="text" class="inputbox" id="bumpmapbox" name="bumpmapbox">
+		<input type="button" class="info" id="bumpmapinfo" value="?" onclick="bumpmapinfo()">
+		<br>
+		<label for="phongexponentbox">Phong exponent:</label>
+		<input type="text" class="inputbox" id="phongexponentbox" name="phongexponentbox">
+		<input type="button" class="info" id="phongexponentinfo" value="?" onclick="phongexponentinfo()">
+		
+		<br><br>
+		
+		<label for="phongboostbox">Phong boost:</label>
+		<input type="number" class="inputbox" id="phongboostbox" name="phongboostbox">
+		<input type="button" class="info" id="phongboostinfo" value="?" onclick="phongboostinfo()">
+		
+		<br><br><br>
+		
+		<label for="customfile">Custom files:</label>
+		<input type="text" class="inputbox" id="customfilebox">
+		<input type="button" class="info" id="customfileinfo" value="?" onclick="customfileinfo()">
+		<br>
+		<label for="customvalue">Custom values:</label>
+		<input type="text" class="inputbox" id="customvaluebox">
+		<input type="button" class="info" id="customvalueinfo" value="?" onclick="customvalueinfo()">
+		
+		<br><br><br>
+		
+		<input type="button" class="compilebutton" id="compilebutton" value="Compile" onclick="compile()">
+		<input type="button" class="savebutton" id="savebutton" value="Save VMT" onclick="saveVMT()">
+		<br>
+		<textarea class="exportbox" id="exportbox"></textarea>
+		
+		<br><br><br>
+		
+		<h3>Update log</h3>
+		<p>
+		19.3.23: Added custom line support + a bunch of data validation checks<br>
+		15.3.23: Ported v2 to HTML
+		</p>
+		
+	</body>
+	
+	<!-- CSS -->
+	<style>
+	
+		.old-download {
+			text-align: center;
+			background-color: black;
+			color: white;
+			position: absolute;
+			top: 0; left: 0; width: 100%;
+		}
+		
+		a:link {
+			color: #9999dd;
+		}
+		
+		.inputbox {
+			position: absolute;
+			left: 150px;
+		}
+		.info {
+			position: absolute;
+			left: 330px;
+		}
+		
+		.exportbox {
+			height: 240px;
+			width: 250px;
+		}
+		
+		.savebutton {
+			display: none;
+		}
+	
+	</style>
+	
+	<!-- Javascript -->
+	<script>
+	
+		// information boxes
+		function filepathinfo() {
+			alert("The location of the file written in the VMT, startingAFTER the Workshop or Usermod file. You must use backslashes (\). This is because Source is kinda weird. Do not add the backslash right at the end, it's added for you.");
+		};
+		function basetextureinfo() {
+			alert("The basetexture (otherwise known as the diffuse texture) is the colour of the texture. Do not add .vtf, it's added for you. PNG to VTS converters are programs like VTFEdit, go get that if you dont have your textures as .vtf files.");
+		};
+		function bumpmapinfo() {
+			alert("The bumpmap (otherwise known as the normal map) is a funky looking texture which adds an extra level of detail to the texture without the need of more geometry. Do not type .vtf at the end.");
+		};
+		function phongexponentinfo() {
+			alert("The phong exponent (otherwise known as the roughness map) is a grayscale image that determines which areas of the texture are affected by the phongboost. Do not put .vtf at the end.");
+		};
+		function phongboostinfo() {
+			alert("The phong boost (otherwise known as roughness or specular) determines how shiny the texture is. Just a simple number. Type one in or use the up and down buttons on the right.");
+		};
+		function customfileinfo() {
+			alert("Any custom lines you want in the upper section, incase there's anything I didn't add direct features for. Make sure to type out the FULL thing. You can use \\n for a new line.");
+		}
+		function customvalueinfo() {
+			alert("Any custom lines you want in the lower section, incase there's anything I didn't add direct features for. Make sure to type out the FULL thing. You can use \\n for a new line");
+		}
+		
+		// compile VMT
+		
+		function compile() { // new line = \n; tab = \t; \ = \\;
+			compiledvmt = '"VertexlitGeneric"';
+			compiledvmt = compiledvmt + '\n{\n\t"$basetexture" "';
+			compiledvmt = compiledvmt + document.getElementById("filepathbox").value.replace("/", "\\"); // if user added forward slash instead of backslash, replace it with a backslash
+			compiledvmt = compiledvmt + '\\' + document.getElementById("basetexturebox").value + '"';
+			
+			// check if user has added a bumpmap, if not then dont add the line
+			if (document.getElementById("bumpmapbox").value != "") {
+				compiledvmt = compiledvmt + '\n\t' + '"$bumpmap" "' + document.getElementById("filepathbox").value;
+				compiledvmt = compiledvmt + '\\' + document.getElementById("bumpmapbox").value + '"';
+			}
+			
+			// check if user has added a phongexponent, if not then dont add the line
+			if (document.getElementById("phongexponentbox").value != "") {
+				compiledvmt = compiledvmt + '\n\t' + '"$phongexponent" "' + document.getElementById("filepathbox").value;
+				compiledvmt = compiledvmt + '\\' + document.getElementById("phongexponentbox").value + '"';
+			}
+			
+			// without this check, an empty custom file would add a new line, which looks a bit messy
+			if (document.getElementById("customfilebox").value != "") {
+				compiledvmt = compiledvmt + "\n\t" + document.getElementById("customfilebox").value;
+			}
+			
+			compiledvmt = compiledvmt + '\n' + '$basetexturealphaenvmapmask "1"' + '\n' + '$phong "3"\n';
+			
+			// makes sure that if the user did not input a phongboost, default to value 1
+			if (document.getElementById("phongboostbox").value != "") {
+				ompiledvmt = compiledvmt + '$phongboost "' + document.getElementById("phongboostbox").value + '"\n';
+			} else {
+				compiledvmt = compiledvmt + '$phongboost "' + '"1"' + '\n';
+			}
+			
+			compiledvmt = compiledvmt + '$phongfresnelranges "[0.05 05 1]"' + '\n' + '$phongalbedotint "1"' + '\n' + '$basemapalphaphongmask "1"' + '\n' + '$phongalbedoboost "1"' + '\n' + '$halflambert 0' + '\n' + '$diffuseexp 1.5';
+			
+			// without this check, an empty custom value woudl add a new line, which looks a bit messy
+			if (document.getElementById("customvaluebox").value != "") {
+				compiledvmt = compiledvmt + '\n' + document.getElementById("customvaluebox").value;
+			}
+			
+			compiledvmt = compiledvmt + '\n}';
+			
+			// displays exported vmt
+			document.getElementById("exportbox").value = compiledvmt;
+			
+			// enables save button
+			document.getElementById("savebutton").style.display = "inline";
+		};
+		
+		// save to file
+		
+		function saveVMT() {
+			const element = document.createElement('a');
+			const blob = new Blob([compiledvmt], {type: 'plain/text'});
+			const fileUrl = URL.createObjectURL(blob);
+			
+			element.setAttribute('href', fileUrl);
+			element.setAttribute('download', document.getElementById("basetexturebox").value + ".vmt");
+			element.style.display = 'none';
+			
+			document.body.appendChild(element);
+			element.click();
+			
+			document.body.removeChild(element);
+		};
+		window.onload = () => {
+			document.getElementById('download').
+			addEventListener('click', e => {
+				const filename = document.getElementById('filename').value;
+				const content = document.getElementById('text').value;
+				
+				if (filename && content) {
+					downloadFile(filename,content);
+				}
+			});
+		};
+	
+	</script>
+</html>

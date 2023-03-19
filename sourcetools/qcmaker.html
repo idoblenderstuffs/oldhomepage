@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<body>
+	<!-- HTML -->
+	
+		<div class="old-download">You can download the old version <a href="https://idoblenderstuffs.github.io/sourcetools/IdoSourceTools.rar">here</a></div>
+		
+		<h1>idoblenderstuffs QC Maker v3</h1>
+		
+		<br>
+		
+		<label for="mdlpathbox">MDL path:&#160;&#160;</label>
+		<input type="text" class="inputbox" id="mdlpathbox">
+		<input type="button" class="info" id="mdlpathinfo" value="?" onclick="mdlpathinfo()">
+		<br>
+		<label for="mdlnamebox">MDL name:</label>
+		<input type="text" class="inputbox" id="mdlnamebox">
+		<input type="button" class="info" id="mdlnameinfo" value="?" onclick="mdlnameinfo()">
+		
+		<br><br>
+		<label for="bodygroupaddbox">Bodygroups:</label>
+		<input type="text" class="bodygroupaddbox" id="bodygroupaddbox">
+		<select class="dropdown" id="singleortoggle">
+			<option value="Single">Single</option>
+			<option value="Toggle">Toggle</option>
+		</select>
+		<select class="dropdown" id="smdordmx">
+			<option value="SMD">SMD</option>
+			<option value="DMX">DMX</option>
+		</select>
+		<input type="button" class="info" id="bodygroupinfo" value="+" onclick="bodygroupadd()">
+		<input type="button" class="info" id="bodygroupinfo" value="?" onclick="bodygroupinfo()">
+		<br> <textarea class="bodygroupbox" id="bodygroupbox"></textarea>
+		
+		<br><br><br>
+		<input type="button" class="compilebutton" id="compilebutton" value="Compile" onclick="compile()">
+		<input type="button" class="savebutton" id="savebutton" value="Save VMT" onclick="saveVMT()">
+		<br>
+		<textarea class="exportbox" id="exportbox"></textarea>
+	
+	<!-- CSS -->
+	<style>
+	
+		.old-download {
+			text-align: center;
+			background-color: black;
+			color: white;
+			position: absolute;
+			top: 0; left: 0; width: 100%;
+		}
+		
+		a:link {
+			color: #9999dd;
+		}
+		
+		.exportbox {
+			height: 240px;
+			width: 250px;
+		}
+		
+		.savebutton {
+			display: none;
+		}
+	
+	</style>
+	
+	<!-- Javascript -->
+	<script>
+	
+		// information boxes
+		function filepathinfo() {
+			alert("The location of the file written in the VMT, startingAFTER the Workshop or Usermod file. You must use backslashes (\). This is because Source is kinda weird. Do not add the backslash right at the end, it's added for you.");
+		};
+		
+		// bodygroups
+		const bodygroups = [];
+		bodygroupcount = 0;
+		function bodygroupadd() {
+			bodygroups[bodygroupcount] = document.getElementById("bodygroupaddbox").value + "|" + document.getElementById("smdordmx").value + "|" + document.getElementById("singleortoggle").value;
+			document.getElementById("bodygroupbox").value = document.getElementById("bodygroupbox").value + bodygroups[bodygroupcount] + "\n";
+			bodygroupcount = bodygroupcount + 1;
+			
+			// document.getElementById("test").value = document.getElementById("bodygroupaddbox").value + "|" + document.getElementById("smdordmx").value + "|" + document.getElementById("singleortoggle").value;
+		}
+		
+		// compile
+		// new line = \n; tab = \t; \ = \\;
+		function compile() {
+			
+			//export code
+			
+			document.getElementById("exportbox").value = compiledqc;
+			
+			document.getElementById("savebutton").style.display = "inline";
+		};
+		
+		// save to file
+		function saveQC() {
+			const element = document.createElement('a');
+			const blob = new Blob([compiledvmt], {type: 'plain/text'});
+			const fileUrl = URL.createObjectURL(blob);
+			
+			element.setAttribute('href', fileUrl);
+			element.setAttribute('download', document.getElementById("mdlnamebox").value + ".qc");
+			element.style.display = 'none';
+			
+			document.body.appendChild(element);
+			element.click();
+			
+			document.body.removeChild(element);
+		};
+		window.onload = () => {
+			document.getElementById('download').
+			addEventListener('click', e => {
+				const filename = document.getElementById('filename').value;
+				const content = document.getElementById('text').value;
+				
+				if (filename && content) {
+					downloadFile(filename,content);
+				};
+			});
+		};
+	
+	</script>
+	
+	</body>
+</html>
