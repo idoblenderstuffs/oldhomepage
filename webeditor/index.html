@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		
+		<title>ez html editor</title>
+		
+		<div class="webeditor-topnav">
+		<div class="webeditor-topnav-child" style="float:left;">idoblenderstuffs' ez html editor</div>
+		<input type="button" class="webeditor-topnav-child" style="float:right" value="Save HTML" onclick="saveHTML();">
+		<input type="text" class="webeditor-topnav-child" id="webeditor-filename" style="float:right; margin-right: 0px;" value="my-website">
+		</div> <br>
+		<textarea class="webeditor-textareas" id="webeditor-htmlarea" oninput="update_section_html(this.value, 'webeditor-previewbox');"></textarea>
+		
+		<br>
+		<div class="webeditor-previewbox" id="webeditor-previewbox"></div>
+		
+		<style>
+			
+			.webeditor-textareas {
+				width: 100%;
+				height: 400px;
+				display: inline;
+			}
+			
+			.webeditor-topnav {
+				position: absolute;
+				padding: 0px;
+				left: 0px;
+				top: 0px;
+				width: 100%;
+				background-color: black;
+				color: white;
+			}
+			
+			.webeditor-topnav-child { margin: 0px 40px 0px 10px; }
+		
+		</style>
+		<script>
+			
+			document.getElementById("webeditor-htmlarea").value = 
+			"<!DOCTYPE html>\n<html>\n\n\t<h1>idoblenderstuffs' ez html editor</h1>\n\n</html>";
+			
+			document.getElementById('webeditor-previewbox').innerHTML = document.getElementById("webeditor-htmlarea").value;
+			
+			function update_section_html(with_what, what) {
+				document.getElementById(what).innerHTML = with_what;
+			}
+			
+			document.getElementById('webeditor-htmlarea').addEventListener('keydown', function(e) {
+			if (e.key == 'Tab') {
+				e.preventDefault();
+				var start = this.selectionStart;
+				var end = this.selectionEnd;
+			
+				// set textarea value to: text before caret + tab + text after caret
+				this.value = this.value.substring(0, start) +
+				"\t" + this.value.substring(end);
+			
+				// put caret at right position again
+				this.selectionStart =
+				this.selectionEnd = start + 1;
+				}
+			});
+			
+			function saveHTML() {
+				const element = document.createElement('a');
+				const blob = new Blob([document.getElementById("webeditor-htmlarea").value], {type: 'plain/text'});
+				const fileUrl = URL.createObjectURL(blob);
+				
+				element.setAttribute('href', fileUrl);
+				element.setAttribute('download', document.getElementById("webeditor-filename").value + ".html");
+				element.style.display = 'none';
+				
+				document.body.appendChild(element);
+				element.click();
+				
+				document.body.removeChild(element);
+			};
+			window.onload = () => {
+				document.getElementById('download').
+				addEventListener('click', e => {
+					const filename = document.getElementById('filename').value;
+					const content = document.getElementById('content').value;
+					
+					if (filename && content) {
+						downloadFile(filename,content);
+					}
+				});
+			};
+		
+		</script>
+	</body>
+</html>
