@@ -6,40 +6,41 @@
   <head>
     <style>
 		
+		body {
+			background-color: black;
+			color: white;
+		}
+
 		.warning {
 			text-align: center;
-			background-color: yellow;
-			color: black;
+			border-bottom: solid;
 			position: absolute;
 			top: 0; left: 0; width: 100%;
 		}
 		
-		.grid-container {
-			display: grid; 
-			margin: auto;
-			grid-template-areas: 'header header header header header header' 'menu main main main right right' 'menu footer footer footer footer footer';
-			gap: 10px;
-			padding: 10px;
-			width: 34em;
-		}
-		
-		.grid-container > div {
-			background-color: #999999;
-			border-color: #606060;
-			border-radius: 10px;
-			border-width: 10px;
-			text-align: center;
-			padding: 20px 0;
-		}
-		
-		.icon {grid-area: menu; margin: 0px 10px}
-		.heading {grid-area: header; font-size: 22px;}
-		.paragraph {grid-area: main;}
-		
 		.footer {
 			text-align: center;
 			font-weight: bold;
-			background-color: #bbbbbb;
+			position: fixed;
+			border-top: solid;
+			left: 0; bottom: 0; width: 100%;
+		}
+
+		.project {
+			text-decoration: none;
+			margin: auto;
+			padding: 10px;
+		}
+		.project a {
+			text-decoration: none;
+			color: white;
+			margin: auto;
+			width: 50%;
+			padding: 10px;
+		}
+
+		p {
+			font-size: 15px;
 		}
     
     </style>
@@ -53,67 +54,41 @@
       <h5>this is my site where i do my things</h5>
       <br><br>
       <h4>projects</h4><br>
-	</center>
-	  
-	  <!-- youtube channel -->
-	  
-	  <div class="grid-container">
-		<div class="icon">
-			<a href="https://www.youtube.com/channel/UCuetYwMwg4xWwiQKCaFnV9Q"><img src="images/Youtube.png" width=200px height=200px></a>
-		</div>
-		<div class="heading">YouTube channel</div>
-		<div class="paragraph">
-		Kinda obvious that I'm putting this one here. It's basically 
-		everything that I sink my time into. It's FNaF animations made
-		in Blender, if you care about that at all.<br><br>
-		
-		<a href="https://www.youtube.com/watch?v=6_DF581Lzog">Pumpkin Song</a><br><br>
-		<a href="https://www.youtube.com/watch?v=4WUCXu8Ra8A">I Wanna Be A Machine</a><br><br>
-		<a href="https://www.youtube.com/watch?v=hQbZi0mjh4Q">The Mind Electric (FULL)</a><br><br>
-		</div>
-	  </div>
-	  <br>
-	
-    <!-- ubg online -->
-	
-	<div class="grid-container">
-		<div class="icon">
-			<a href="https://idoblenderstuffs.github.io/ubgonline/"><img src="images/UBGOnline.png" width=200px height=200px></a>
-		</div>
-		<div class="heading">UBG Online</div>
-		<div class="paragraph">
-		This was an unblocked games website I made for my school. Someone 
-		obviously snitched and ruined the fun (and days of effort) that 
-		this site brought. It's now just a subdomain to this site, but it's 
-		still blocked if you go to it because my school has rock hard 
-		security. The only benefit was being unblocked but it isn't anymore. 
-		Just keeping it because it means a lot to me. It's my first ACTUAL 
-		web project.<br><br>
-		
-		<a href="https://idoblenderstuffs.github.io/ubgonline/">Snitches are 100% gay for max larkin</a>
-		</div>
+
+	<!-- Youtube -->
+	<div class="project">
+	<img src="images/Youtube.png" width=20px height=20px>
+	<a href="https://www.youtube.com/@idoblenderstuffs2704/videos"><strong>Youtube</strong></a> |
+	<a href="https://youtu.be/6_DF581Lzog">Pumpkin Song</a> |
+	<a href="https://youtu.be/4WUCXu8Ra8A">I Wanna Be a Machine</a> |
+	<a href="https://youtu.be/hQbZi0mjh4Q">The Mind Electric</a>
+	<br><p>kinda obvious why this one is here. it's most of what i do.</p>
 	</div>
-	<br>
-	
-	<!-- Ido's Source Engine Utilities -->
-	
-	<div class="grid-container">
-		<div class="icon">
-			<a href="https://idoblenderstuffs.github.io/idosourcetools/vmtmaker.html"><img src="images/idosourcetools.png" width=200px height=200px></a>
-		</div>
-		<div class="heading">Ido's Source Engine Utilities</div>
-		<div class="paragraph">
-		Some programs for porting models to the Source Engine. There's an 
-		old version available, but I'm currently trying to make a v3 that 
-		runs in the web browser. Including new VMT and QC makers, as well 
-		as potentially some new tools? I dunno.<br><br>
-		
-		<a href="https://idoblenderstuffs.github.io/idosourcetools/vmtmaker.html">VMT Maker</a><br>
-		<a href="https://idoblenderstuffs.github.io/idosourcetools/qcmaker.html">QC Maker (wip)</a><br>
-		<br>
-		<a href="https://idoblenderstuffs.github.io/idosourcetools/IdoSourceTools.rar">Download old version here</a>
-		</div>
-	</div><br><br>
+
+	<!-- UBG Online-->
+
+	<div class="project">
+	<img src="images/UBGOnline.png" width=20px height=20px>
+	<a href="https://idoblenderstuffs.github.io/ubgonline/"><strong>UBGOnline</strong></a> |
+	<a href="https://idoblenderstuffs.github.io/ubgonline/twdf/index.html">Tower Defense</a> |
+	<a href="https://idoblenderstuffs.github.io/ubgonline/gtwyshtut/index.html">Getaway Shootout</a> |
+	<a href="https://idoblenderstuffs.github.io/ubgonline/wlfjs/index.html">Wolf3D</a>
+	<br><p>unblocked games site i made for my school. someone told on me. snitch.</p>
+	</div>
+
+	<!-- IdoSourceTools -->
+
+	<div class="project">
+	<img src="images/idosourcetools.png" width=20px height=20px>
+	<a href="https://idoblenderstuffs.github.io/idosourcetools/vmtmaker.html"><strong>IdoSourceTools</strong></a> |
+	<a href="https://idoblenderstuffs.github.io/idosourcetools/vmtmaker.html">VMT Maker</a> |
+	<a href="https://idoblenderstuffs.github.io/idosourcetools/qcmaker.html">QC Maker</a> |
+	<a href="https://idoblenderstuffs.github.io/idosourcetools/IdoSourceTools.rar">Old version</a>
+	<br><p>some stuff i made to help with porting from blender to sfm. current qc maker isnt really working.</p>
+	</div>
+
+
+	</center>
 	
 	<!-- Footer -->
 	
